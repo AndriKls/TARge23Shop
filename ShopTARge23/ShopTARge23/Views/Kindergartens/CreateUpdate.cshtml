@@ -1,6 +1,5 @@
 ﻿@model ShopTARge23.Models.Kindergartens.KindergartenCreateUpdateViewModel
 
-
 @if (Model.Id.HasValue)
 {
     <h1>Update</h1>
@@ -44,10 +43,21 @@ else
             </div>
         </div>
 
+        <div class="form-group row">
+            <label asp-for="Files" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-5">
+                <div class="custom-file">
+                    <input class="form-control" asp-for="Files" multiple type="file" />
+                </div>
+            </div>
+        </div>
 
+        @foreach (var images in Model.Image)
+        {
+            <partial name="_Images" model="images" />
+        }
 
-
-        <hr/>
+        <hr />
 
         @if (Model.Id.HasValue)
         {

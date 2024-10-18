@@ -5,7 +5,6 @@ using ShopTARge23.Core.Dto;
 using ShopTARge23.Core.ServiceInterface;
 using ShopTARge23.Data;
 
-
 namespace ShopTARge23.ApplicationServices.Services
 {
     public class FileServices : IFileServices
@@ -23,15 +22,14 @@ namespace ShopTARge23.ApplicationServices.Services
             _context = context;
         }
 
-
         public void FilesToApi(SpaceshipDto dto, Spaceship spaceship)
         {
-            if(!Directory.Exists(_webHost.ContentRootPath + "\\multipleFileUpload\\"))
+            if (!Directory.Exists(_webHost.ContentRootPath + "\\multipleFileUpload\\"))
             {
                 Directory.CreateDirectory(_webHost.ContentRootPath + "\\multipleFileUpload\\");
             }
 
-            foreach(var file in dto.Files)
+            foreach (var file in dto.Files)
             {
                 string uploadsFolder = Path.Combine(_webHost.ContentRootPath, "multipleFileUpload");
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
@@ -53,9 +51,38 @@ namespace ShopTARge23.ApplicationServices.Services
             }
         }
 
+        public void FilesToApi(KindergartenDto dto, Kindergarten kindergarten)
+        {
+            if (!Directory.Exists(_webHost.ContentRootPath + "\\multipleFileUpload\\"))
+            {
+                Directory.CreateDirectory(_webHost.ContentRootPath + "\\multipleFileUpload\\");
+            }
+
+            foreach (var file in dto.Files)
+            {
+                string uploadsFolder = Path.Combine(_webHost.ContentRootPath, "multipleFileUpload");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+
+                    FileToApi path = new FileToApi
+                    {
+                        Id = Guid.NewGuid(),
+                        ExistingFilePath = uniqueFileName,
+                        KindergartenId = kindergarten.Id
+                    };
+
+                    _context.FileToApis.AddAsync(path);
+                }
+            }
+        }
+
         public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dtos)
         {
-            foreach(var dto in dtos)
+            foreach (var dto in dtos)
             {
                 var imageId = await _context.FileToApis
                     .FirstOrDefaultAsync(x => x.ExistingFilePath == dto.ExistingFilePath);
