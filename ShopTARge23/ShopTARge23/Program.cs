@@ -3,6 +3,7 @@ using Microsoft.Extensions.FileProviders;
 using ShopTARge23.ApplicationServices.Services;
 using ShopTARge23.Core.ServiceInterface;
 using ShopTARge23.Data;
+using ShopTARgv23.ApplicationServices.Services;
 
 
 namespace ShopTARge23
@@ -22,6 +23,8 @@ namespace ShopTARge23
 
             builder.Services.AddDbContext<ShopTARge23Context>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
 
 
             var app = builder.Build();
