@@ -25,6 +25,7 @@ namespace ShopTARge23
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
+            builder.Services.AddScoped<IOpenWeathersServices, OpenWeathersServices>();
 
 
             var app = builder.Build();

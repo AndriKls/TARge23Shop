@@ -1,0 +1,29 @@
+﻿@model ShopTARge23.Models.OpenWeathers.SearchViewModel
+
+<head>
+    <link rel="stylesheet" href="css/OpenWeathers.css">
+</head>
+
+
+<div class="weather-app-container">
+    <form method="post" class="weather-search-form">
+        <header class="weather-header">
+            <h1 class="app-title">Ilmavõlur</h1>
+            <p class="app-subtitle">Täpsed ilmaprognoosid sinu lemmiklinnadele.</p>
+        </header>
+        <section class="search-section">
+            <h3 class="search-heading">Leia oma linn:</h3>
+            <div class="form-group row">
+                <div class="col search-input-col">
+                    <input asp-for="City" class="form-control city-input" placeholder="Sisesta linna nimi" />
+                    <span asp-validation-for="City" class="error-message text-danger"></span>
+                </div>
+                <div class="col search-button-col">
+                    <button asp-controller="OpenWeathers" asp-action="searchCity" class="btn btn-search">
+                        Vaata ilma
+                    </button>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

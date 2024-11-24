@@ -1,0 +1,53 @@
+﻿@model ShopTARge23.Models.OpenWeathers.OpenWeathersViewModel
+
+
+<head>
+    <link rel="stylesheet" href="css/OpenWeathers.css" />
+</head>
+
+
+@{
+    var iconCode = Model.Icon;
+    var iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+}
+
+
+
+<div class="weather-details-container">
+    <header class="weather-header">
+        <h1 class="city-name">@Html.DisplayFor(model => model.City)</h1>
+        <hr class="divider" />
+    </header>
+    <div class="details-section">
+        <div class="weather-stats">
+            <div class="stat">
+                <span class="stat-label">Temperatuur:</span>
+                <span class="stat-value">@Html.DisplayFor(model => model.Temp) °C</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Tundub nagu:</span>
+                <span class="stat-value">@Html.DisplayFor(model => model.FeelsLike) °C</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Niiskus:</span>
+                <span class="stat-value">@Html.DisplayFor(model => model.Humidity) %</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Õhurõhk:</span>
+                <span class="stat-value">@Html.DisplayFor(model => model.Pressure) hPa</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Tuulekiirus:</span>
+                <span class="stat-value">@Html.DisplayFor(model => model.WindSpeed) m/s</span>
+            </div>
+        </div>
+        <div class="weather-icon">
+            <img src="@iconUrl" alt="Weather Icon" class="img-responsive" />
+        </div>
+    </div>
+    <div class="back-button-container">
+        <form method="get">
+            <button asp-action="Index" asp-controller="OpenWeathers" class="btn btn-secondary">Back to Search</button>
+        </form>
+    </div>
+</div>
